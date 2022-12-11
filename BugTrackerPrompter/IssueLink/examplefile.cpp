@@ -1,5 +1,5 @@
 //because of https://www.redmine.org/issues/29521 you will not see green Redmine links here.
-//to see Redmine links alive, you need to setup this Vsix to your Redmine installation
+//to see green Redmine links, you need to setup this Vsix to your Redmine installation
 //with a new version of Redmine.
 RM-1
 RM-1 yes
