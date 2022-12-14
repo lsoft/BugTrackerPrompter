@@ -54,6 +54,8 @@
     <Compile Include="IssueLink\Api\Gitlab\GitlabApi.cs" />
     <Compile Include="IssueLink\Api\Gitlab\Json.cs" />
     <Compile Include="IssueLink\Api\IIssueSourceApi.cs" />
+    <Compile Include="IssueLink\Api\IssueInfo.cs" />
+    <Compile Include="IssueLink\Api\IssueSourceApi.cs" />
     <Compile Include="IssueLink\Api\Redmine\Json.cs" />
     <Compile Include="IssueLink\Api\Redmine\RedmineApi.cs" />
     <Content Include="IssueLink\examplefile.cpp" />

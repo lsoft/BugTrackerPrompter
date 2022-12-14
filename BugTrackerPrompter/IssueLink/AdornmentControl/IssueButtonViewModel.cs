@@ -43,7 +43,8 @@ namespace BugTrackerPrompter.IssueLink.AdornmentControl
             GotoCommand = new RelayCommand(
                 o =>
                 {
-                    System.Diagnostics.Process.Start(_tag.BuildIssueUrl());
+                    var url = IssueSourceApi.Instance.BuildIssueUrl(_tag);
+                    System.Diagnostics.Process.Start(url);
                 },
                 o =>
                 {
@@ -54,9 +55,8 @@ namespace BugTrackerPrompter.IssueLink.AdornmentControl
             CopyToClipboardCommand = new RelayCommand(
                 o =>
                 {
-                    Clipboard.SetText(
-                        _tag.BuildIssueUrl()
-                        );
+                    var url = IssueSourceApi.Instance.BuildIssueUrl(_tag);
+                    Clipboard.SetText(url);
                 }
                 );
 

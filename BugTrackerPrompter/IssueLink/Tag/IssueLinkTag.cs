@@ -1,18 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.Text.Tagging;
 using BugTrackerPrompter.Options;
+using BugTrackerPrompter.IssueLink.Api;
 
 namespace BugTrackerPrompter.IssueLink.Tag
 {
-    /// <summary>
-    /// Data tag indicating that the tagged text represents a color.
-    /// </summary>
-    /// <remarks>
-    /// Note that this tag has nothing directly to do with adornments or other UI.
-    /// This sample's adornments will be produced based on the data provided in these tags.
-    /// This separation provides the potential for other extensions to consume color tags
-    /// and provide alternative UI or other derived functionality over this data.
-    /// </remarks>
     public class IssueLinkTag : ITag
     {
         public IssueSourceEnum IssueSource
@@ -37,24 +29,6 @@ namespace BugTrackerPrompter.IssueLink.Tag
         public string ToVisual()
         {
             return $"{IssueSource} {IssueNumber}";
-        }
-
-        public string BuildIssueUrl()
-        {
-            switch (IssueSource)
-            {
-                case IssueSourceEnum.Redmine:
-                    return string.Format(IssueLinkOptionsModel.Instance.RedmineWebRoot, IssueNumber);
-
-                case IssueSourceEnum.Gitlab:
-                    return string.Format(IssueLinkOptionsModel.Instance.GitlabWebRoot, IssueNumber);
-
-                case IssueSourceEnum.Github:
-                    return string.Format(IssueLinkOptionsModel.Instance.GithubWebRoot, IssueLinkOptionsModel.Instance.GithubUserName, IssueLinkOptionsModel.Instance.GithubRepositoryName, IssueNumber);
-
-                default:
-                    throw new ArgumentOutOfRangeException(IssueSource.ToString());
-            }
         }
     }
 }

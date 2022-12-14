@@ -1,6 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Text;
 using BugTrackerPrompter.Support;
+using BugTrackerPrompter.IssueLink.Api;
+using System.Linq;
 
 namespace BugTrackerPrompter.IssueLink.Tag
 {
@@ -15,17 +17,8 @@ namespace BugTrackerPrompter.IssueLink.Tag
     /// </remarks>
     internal sealed class IssueLinkTagger : RegexTagger<IssueLinkTag>
     {
-        private const string RedminePrefix = "RM-";
-        private const string GitlabPrefix = "#";
-        private const string GithubPrefix = "GH-";
-
         public IssueLinkTagger(ITextBuffer buffer)
-            : base(buffer, new[]
-            {
-                new Regex(@"(^|\s|\W)(?'name'RM-)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase),
-                new Regex(@"(^|\s|\W)(?'name'#)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase),
-                new Regex(@"(^|\s|\W)(?'name'GH-)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase),
-            })
+            : base(buffer, IssueSourceApi.Regexes)
         {
         }
 
@@ -54,20 +47,13 @@ namespace BugTrackerPrompter.IssueLink.Tag
                 return null;
             }
 
-            if (nameGroup.ToString() == RedminePrefix)
+            var api = IssueSourceApi.Apis.FirstOrDefault(api => api.IssueHeader == nameGroup.ToString());
+            if(api == null)
             {
-                return new IssueLinkTag(IssueSourceEnum.Redmine, issueNumber);
-            }
-            if (nameGroup.ToString() == GitlabPrefix)
-            {
-                return new IssueLinkTag(IssueSourceEnum.Gitlab, issueNumber);
-            }
-            if (nameGroup.ToString() == GithubPrefix)
-            {
-                return new IssueLinkTag(IssueSourceEnum.Github, issueNumber);
+                return null;
             }
 
-            return null;
+            return new IssueLinkTag(api.Source, issueNumber);
         }
 
     }

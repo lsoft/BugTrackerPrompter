@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BugTrackerPrompter.IssueLink.Api.Github
@@ -15,6 +16,14 @@ namespace BugTrackerPrompter.IssueLink.Api.Github
     public class GithubApi : IIssueSourceApi
     {
         public static readonly GithubApi Instance = new GithubApi();
+
+        public IssueSourceEnum Source => IssueSourceEnum.Github;
+
+        public string IssueHeader => "GH-";
+
+        public Regex AdornmentRegex => new Regex(@"(^|\s|\W)(?'name'GH-)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+
+        public string BuildIssueUrl(int issueNumber) => string.Format(IssueLinkOptionsModel.Instance.GithubWebRoot, IssueLinkOptionsModel.Instance.GithubUserName, IssueLinkOptionsModel.Instance.GithubRepositoryName, issueNumber);
 
         public async Task<IssueInfo?> GetIssueInfoAsync(IssueLinkTag tag)
         {
