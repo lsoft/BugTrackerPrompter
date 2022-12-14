@@ -32,7 +32,7 @@ namespace BugTrackerPrompter.IssueLink.Api.Gitlab
 
             var content = await response.Content.ReadAsStringAsync();
 
-            var contentXml = JsonSerializer.Create().Deserialize<Rootobject>(
+            var contentXml = JsonSerializer.Create().Deserialize<IssueRootObject>(
                 new JsonTextReader(
                     new StringReader(
                         content

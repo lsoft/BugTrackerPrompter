@@ -34,3 +34,18 @@ no #123456b no
 no x#123456b no
 no x#123456 no
 
+GH-1
+GH-7 yes
+yes GH-1
+yes GH-1 yes
+yes GH-12 yes
+yes GH-293 yes
+yes GH-1234 yes
+yes GH-12345 yes
+yes GH-123456 yes
+yes GH-123456, yes
+yes, GH-123456, yes
+yes, GH-1123456, yes
+no GH-123456b no
+no xGH-123456b no
+no xGH-123456 no

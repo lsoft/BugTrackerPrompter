@@ -2,7 +2,7 @@
 
 A Visual Studio Extension to show the links to your bug tracker directly in your code.
 
-At the time Gitlab, and Redmine are supported.
+At the time Github, Gitlab, and Redmine are supported.
 
 ![Image 0](example0.png)
 

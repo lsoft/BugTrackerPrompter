@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BugTrackerPrompter.IssueLink.Api.Github;
 using BugTrackerPrompter.IssueLink.Api.Gitlab;
 using BugTrackerPrompter.IssueLink.Api.Redmine;
 using BugTrackerPrompter.IssueLink.Tag;
@@ -60,6 +61,9 @@ namespace BugTrackerPrompter.IssueLink.Api
 
                 case IssueSourceEnum.Gitlab:
                     return GitlabApi.Instance.GetIssueInfoAsync(tag);
+
+                case IssueSourceEnum.Github:
+                    return GithubApi.Instance.GetIssueInfoAsync(tag);
 
                 default:
                     throw new ArgumentOutOfRangeException(tag.IssueSource.ToString());

@@ -17,12 +17,14 @@ namespace BugTrackerPrompter.IssueLink.Tag
     {
         private const string RedminePrefix = "RM-";
         private const string GitlabPrefix = "#";
+        private const string GithubPrefix = "GH-";
 
         public IssueLinkTagger(ITextBuffer buffer)
             : base(buffer, new[]
             {
                 new Regex(@"(^|\s|\W)(?'name'RM-)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase),
                 new Regex(@"(^|\s|\W)(?'name'#)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase),
+                new Regex(@"(^|\s|\W)(?'name'GH-)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase),
             })
         {
         }
@@ -59,6 +61,10 @@ namespace BugTrackerPrompter.IssueLink.Tag
             if (nameGroup.ToString() == GitlabPrefix)
             {
                 return new IssueLinkTag(IssueSourceEnum.Gitlab, issueNumber);
+            }
+            if (nameGroup.ToString() == GithubPrefix)
+            {
+                return new IssueLinkTag(IssueSourceEnum.Github, issueNumber);
             }
 
             return null;

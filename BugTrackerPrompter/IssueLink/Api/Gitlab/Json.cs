@@ -2,7 +2,7 @@
 
 namespace BugTrackerPrompter.IssueLink.Api.Gitlab
 {
-    public class Rootobject
+    public class IssueRootObject
     {
         public int id { get; set; }
         public int iid { get; set; }

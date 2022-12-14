@@ -39,7 +39,6 @@ namespace BugTrackerPrompter.Options
 
 
 
-
         [Category("Gitlab")]
         [DisplayName("Gitlab API root")]
         [Description("An API root of the Gitlab link.")]
@@ -60,9 +59,37 @@ namespace BugTrackerPrompter.Options
 
         [Category("Gitlab")]
         [DisplayName("Gitlab API key")]
-        [Description("Your API key for Gitlab API.")]
+        [Description("Your API key for Gitlab API. Keep in as granular as possible.")]
         [DefaultValue("")]
         public string GitlabApiKey { get; set; } = "";
+
+
+
+        [Category("Github")]
+        [DisplayName("Github WEB root")]
+        [Description("A web root of the Github link.")]
+        [DefaultValue("https://gitlab.com/gitlab-org/gitlab/-/issues/{0}")]
+        [Browsable(false)]
+        public string GithubWebRoot { get; set; } = "https://github.com/{0}/{1}/issues/{2}";
+
+        [Category("Github")]
+        [DisplayName("Github user name")]
+        [Description("Your user name on Github.")]
+        [DefaultValue("octocat")]
+        public string GithubUserName { get; set; } = "octocat";
+
+        [Category("Github")]
+        [DisplayName("Github repository")]
+        [Description("Your Github repository name")]
+        [DefaultValue("hello-worId")]
+        public string GithubRepositoryName { get; set; } = "hello-worId";
+
+        [Category("Github")]
+        [DisplayName("Github API key")]
+        [Description("Your API key for Github API. Keep in as granular as possible. Github sets a rate limit for unauth requests to the very low value, so it is strongly recommended to use access token!")]
+        [DefaultValue("")]
+        public string GithubApiKey { get; set; } = "";
+
 
     }
 }

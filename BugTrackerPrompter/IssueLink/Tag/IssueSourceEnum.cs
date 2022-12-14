@@ -3,6 +3,7 @@
     public enum IssueSourceEnum
     {
         Redmine = 1,
-        Gitlab = 2
+        Gitlab = 2,
+        Github = 3
     }
 }

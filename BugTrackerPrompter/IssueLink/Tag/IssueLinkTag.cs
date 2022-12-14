@@ -49,6 +49,9 @@ namespace BugTrackerPrompter.IssueLink.Tag
                 case IssueSourceEnum.Gitlab:
                     return string.Format(IssueLinkOptionsModel.Instance.GitlabWebRoot, IssueNumber);
 
+                case IssueSourceEnum.Github:
+                    return string.Format(IssueLinkOptionsModel.Instance.GithubWebRoot, IssueLinkOptionsModel.Instance.GithubUserName, IssueLinkOptionsModel.Instance.GithubRepositoryName, IssueNumber);
+
                 default:
                     throw new ArgumentOutOfRangeException(IssueSource.ToString());
             }

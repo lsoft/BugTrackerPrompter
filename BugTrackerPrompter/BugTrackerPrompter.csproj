@@ -49,6 +49,8 @@
     <Compile Include="IssueLink\AdornmentControl\IssueControl.xaml.cs">
       <DependentUpon>IssueControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IssueLink\Api\Github\GithubApi.cs" />
+    <Compile Include="IssueLink\Api\Github\Json.cs" />
     <Compile Include="IssueLink\Api\Gitlab\GitlabApi.cs" />
     <Compile Include="IssueLink\Api\Gitlab\Json.cs" />
     <Compile Include="IssueLink\Api\IIssueSourceApi.cs" />
