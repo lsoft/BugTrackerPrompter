@@ -5,6 +5,7 @@ using BugTrackerPrompter.IssueLink.Api.Github;
 using BugTrackerPrompter.IssueLink.Api.Gitlab;
 using BugTrackerPrompter.IssueLink.Api.Redmine;
 using BugTrackerPrompter.IssueLink.Tag;
+using BugTrackerPrompter.Support;
 
 namespace BugTrackerPrompter.IssueLink.Api
 {
@@ -20,7 +21,7 @@ namespace BugTrackerPrompter.IssueLink.Api
                 GithubApi.Instance
             };
 
-        public static Regex[] Regexes
+        public static Regex2[] Regexes
         {
             get
             {

@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using BugTrackerPrompter.IssueLink.Tag;
 using BugTrackerPrompter.Options;
 using System.Text.RegularExpressions;
+using BugTrackerPrompter.Support;
 
 namespace BugTrackerPrompter.IssueLink.Api.Redmine
 {
@@ -14,11 +15,16 @@ namespace BugTrackerPrompter.IssueLink.Api.Redmine
     {
         public static readonly RedmineApi Instance = new RedmineApi();
 
+        public bool IsEnabled => IssueLinkOptionsModel.Instance.RedmineEnabled;
+
         public IssueSourceEnum Source => IssueSourceEnum.Redmine;
 
-        public string IssueHeader => "RM-";
+        public string IssueHeader => IssueLinkOptionsModel.Instance.RedmineIssueHeader;
 
-        public Regex AdornmentRegex => new Regex(@"(^|\s|\W)(?'name'RM-)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        public Regex2 AdornmentRegex => new Regex2(
+            new Regex(@"(^|\s|\W)(?'name'" + IssueHeader + @")(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase),
+            () => IsEnabled
+            );
 
         public string BuildIssueUrl(int issueNumber) => string.Format(IssueLinkOptionsModel.Instance.RedmineWebRoot, issueNumber);
 

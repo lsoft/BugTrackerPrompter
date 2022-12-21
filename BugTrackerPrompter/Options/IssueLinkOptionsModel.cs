@@ -19,6 +19,18 @@ namespace BugTrackerPrompter.Options
     public class IssueLinkOptionsModel : BaseOptionModel<IssueLinkOptionsModel>
     {
         [Category("Redmine")]
+        [DisplayName("Redmine bugtracker status")]
+        [Description("Enable or disable Redmine issue tracker.")]
+        [DefaultValue(false)]
+        public bool RedmineEnabled { get; set; } = false;
+
+        [Category("Redmine")]
+        [DisplayName("Redmine issue header")]
+        [Description("A header for Redmine issue link in your sources.")]
+        [DefaultValue("RM-")]
+        public string RedmineIssueHeader { get; set; } = "RM-";
+
+        [Category("Redmine")]
         [DisplayName("Redmine API root")]
         [Description("An API root of the Redmine link.")]
         [DefaultValue("https://www.redmine.org/projects/redmine/")]
@@ -38,6 +50,18 @@ namespace BugTrackerPrompter.Options
 
 
 
+
+        [Category("Gitlab")]
+        [DisplayName("Gitlab bugtracker status")]
+        [Description("Enable or disable Gitlab issue tracker.")]
+        [DefaultValue(false)]
+        public bool GitlabEnabled { get; set; } = true;
+
+        [Category("Gitlab")]
+        [DisplayName("Gitlab issue header")]
+        [Description("A header for Gitlab issue link in your sources ")]
+        [DefaultValue("GL-")]
+        public string GitlabIssueHeader { get; set; } = "GL-";
 
         [Category("Gitlab")]
         [DisplayName("Gitlab API root")]
@@ -63,6 +87,19 @@ namespace BugTrackerPrompter.Options
         [DefaultValue("")]
         public string GitlabApiKey { get; set; } = "";
 
+
+
+        [Category("Github")]
+        [DisplayName("Github bugtracker status")]
+        [Description("Enable or disable Github issue tracker.")]
+        [DefaultValue(false)]
+        public bool GithubEnabled { get; set; } = false;
+
+        [Category("Github")]
+        [DisplayName("Github issue header")]
+        [Description("A header for Github issue link in your sources ")]
+        [DefaultValue("#")]
+        public string GithubIssueHeader { get; set; } = "#";
 
 
         [Category("Github")]

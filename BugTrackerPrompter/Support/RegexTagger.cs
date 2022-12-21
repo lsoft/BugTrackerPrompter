@@ -27,17 +27,17 @@ namespace BugTrackerPrompter.Support
     /// <typeparam name="T">The type of tags that will be produced by this tagger.</typeparam>
     internal abstract class RegexTagger<T> : VisibleWindowTagger<T> where T : ITag
     {
-        private readonly IEnumerable<Regex> _matchExpressions;
+        private readonly IEnumerable<Regex2> _regexes;
 
-        public RegexTagger(ITextBuffer buffer, IEnumerable<Regex> matchExpressions)
+        public RegexTagger(ITextBuffer buffer, IEnumerable<Regex2> regexes)
             : base(buffer)
         {
-            if (matchExpressions.Any(re => (re.Options & RegexOptions.Multiline) == RegexOptions.Multiline))
+            if (regexes.Any(re2 => re2.TryGetRegex(out var re) && (re.Options & RegexOptions.Multiline) == RegexOptions.Multiline))
             {
                 throw new ArgumentException("Multiline regular expressions are not supported.");
             }
 
-            _matchExpressions = matchExpressions;
+            _regexes = regexes;
         }
 
         /// <inheritdoc />
@@ -50,9 +50,19 @@ namespace BugTrackerPrompter.Support
 
             string text = line.GetText();
 
-            foreach (var regex in _matchExpressions)
+            foreach (var regex2 in _regexes)
             {
-                foreach (var match in regex.Matches(text).Cast<Match>())
+                if (!regex2.TryGetRegex(out var regex))
+                {
+                    continue;
+                }
+                if ((regex.Options & RegexOptions.Multiline) == RegexOptions.Multiline)
+                {
+                    //Multiline regular expressions are not supported
+                    continue;
+                }
+
+                foreach (var match in regex!.Matches(text).Cast<Match>())
                 {
                     T tag = TryCreateTagForMatch(match);
                     if (tag != null)

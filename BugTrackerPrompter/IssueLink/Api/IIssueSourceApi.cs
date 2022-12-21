@@ -2,11 +2,17 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BugTrackerPrompter.IssueLink.Tag;
+using BugTrackerPrompter.Support;
 
 namespace BugTrackerPrompter.IssueLink.Api
 {
     public interface IIssueSourceApi
     {
+        bool IsEnabled
+        {
+            get;
+        }
+
         IssueSourceEnum Source
         {
             get;
@@ -17,7 +23,7 @@ namespace BugTrackerPrompter.IssueLink.Api
             get;
         }
 
-        Regex AdornmentRegex
+        Regex2 AdornmentRegex
         {
             get;
         }

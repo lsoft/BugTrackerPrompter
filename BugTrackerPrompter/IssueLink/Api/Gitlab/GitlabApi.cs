@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using BugTrackerPrompter.IssueLink.Tag;
 using BugTrackerPrompter.Options;
 using System.Text.RegularExpressions;
+using BugTrackerPrompter.Support;
 
 namespace BugTrackerPrompter.IssueLink.Api.Gitlab
 {
@@ -13,11 +14,16 @@ namespace BugTrackerPrompter.IssueLink.Api.Gitlab
     {
         public static readonly GitlabApi Instance = new GitlabApi();
 
+        public bool IsEnabled => IssueLinkOptionsModel.Instance.GitlabEnabled;
+
         public IssueSourceEnum Source => IssueSourceEnum.Gitlab;
 
-        public string IssueHeader => "#";
+        public string IssueHeader => IssueLinkOptionsModel.Instance.GitlabIssueHeader;
 
-        public Regex AdornmentRegex => new Regex(@"(^|\s|\W)(?'name'#)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        public Regex2 AdornmentRegex => new Regex2(
+            new Regex(@"(^|\s|\W)(?'name'" + IssueHeader + @")(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase),
+            () => IsEnabled
+            );
 
         public string BuildIssueUrl(int issueNumber) => string.Format(IssueLinkOptionsModel.Instance.GitlabWebRoot, issueNumber);
 

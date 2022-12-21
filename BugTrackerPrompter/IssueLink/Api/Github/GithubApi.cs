@@ -1,5 +1,6 @@
 ﻿using BugTrackerPrompter.IssueLink.Tag;
 using BugTrackerPrompter.Options;
+using BugTrackerPrompter.Support;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,16 @@ namespace BugTrackerPrompter.IssueLink.Api.Github
     {
         public static readonly GithubApi Instance = new GithubApi();
 
+        public bool IsEnabled => IssueLinkOptionsModel.Instance.GithubEnabled;
+
         public IssueSourceEnum Source => IssueSourceEnum.Github;
 
-        public string IssueHeader => "GH-";
+        public string IssueHeader => IssueLinkOptionsModel.Instance.GithubIssueHeader;
 
-        public Regex AdornmentRegex => new Regex(@"(^|\s|\W)(?'name'GH-)(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        public Regex2 AdornmentRegex => new Regex2(
+            new Regex(@"(^|\s|\W)(?'name'" + IssueHeader + @")(?'id'\d{1,7})($|\s|\W)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase),
+            () => IsEnabled
+            );
 
         public string BuildIssueUrl(int issueNumber) => string.Format(IssueLinkOptionsModel.Instance.GithubWebRoot, IssueLinkOptionsModel.Instance.GithubUserName, IssueLinkOptionsModel.Instance.GithubRepositoryName, issueNumber);
 
