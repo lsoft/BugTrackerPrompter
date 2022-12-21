@@ -3,7 +3,8 @@
     <Metadata>
         <Identity Id="BugTrackerPrompter.5f321cb6-f81f-4296-8df6-7b72d0b6ea16" Version="1.0" Language="en-US" Publisher="lsoft" />
         <DisplayName>BugTrackerPrompter</DisplayName>
-        <Description>Empty VSIX Project.</Description>
+        <Description xml:space="preserve">A source code editor adornment to show issue details.</Description>
+        <MoreInfo>https://github.com/lsoft/BugTrackerPrompter</MoreInfo>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Icon.png</PreviewImage>
     </Metadata>
